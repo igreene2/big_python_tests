@@ -51,7 +51,6 @@ print(np.shape(X_test))
 clf.fit(X_train, y_train)
 spv = clf.support_vectors_ 
 d = clf.dual_coef_
-w = clf.coef_
 b = clf.intercept_
 
 print(np.shape(d))
@@ -69,9 +68,32 @@ for x in d[count]:
 for x in X_test[count]:
     test.append(x)    
 
-print(coef)
-print(test)
+# for x in spv:
+#     print(x)
 
+# for x in spv[0]:
+#     print(x)
+
+# print(coef)
+# print(test)
+# print(X_test[1])
+# print(X_test[2])
+
+# print(spv[0].dot(X_test[0]))
+sum = 0
+count = 0
+for x in spv:
+    dot = round(x.dot(X_test[1]))
+    print(dot)
+    dot = round(dot*coef[count])
+    print(dot)
+    sum = sum + dot
+    print(sum)
+    count = count + 1
+sum = sum + b
+print(sum)
+
+count = 0
 full_set = []
 for v in spv:
     count2 = 0
@@ -156,7 +178,7 @@ print(decision)
 
 # Predict the value of the digit on the test subset
 predicted = clf.predict(X_test)
-print(np.shape(predicted))
+print(predicted)
 
 
 

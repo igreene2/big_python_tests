@@ -70,7 +70,7 @@ count = 0
 sumMatrix = 0
 for x in spv:
     x = x*gamma
-    x = np.insert(x, 0, 1, axis = 0)
+    x = np.insert(x, 0, 1)
     x = x.reshape(65, 1)
     supportMatrix = x*np.transpose(x)
     supportMatrix = supportMatrix*coef[count]

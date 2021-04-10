@@ -10,24 +10,19 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_breast_cancer
 
 
-skdigits = datasets.load_breast_cancer()
-
-
-n_samples = len(skdigits.images)
-data = skdigits.images.reshape((n_samples, -1))
-
+digits = datasets.load_breast_cancer()
 
 
 
 # Create a classifier: a support vector classifier
-clf = svm.SVC(kernel = 'poly', degree=4, coef0=1)
+clf = svm.SVC(kernel = 'poly', degree=2, coef0=1)
 
 X_train, X_test, y_train, y_test = train_test_split(
-    newdata, newtargets, test_size=0.7, shuffle=False)
+    digits.data, digits.target, test_size=0.5, shuffle=False)
 
 
 clf.fit(X_train, y_train)
-gamma = 1 / (64 * X_train.var()) 
+gamma = 1 / (30 * X_train.var()) 
 print(gamma)
 spv = clf.support_vectors_ 
 print(spv)
@@ -74,7 +69,7 @@ for v in spv:
     # remember to take gamma to the DEGREE!!!!
     data_set =  {"_instr_No.": count, 
                     "addr": hex(count), 
-                    "data": coef[count_alpha]*(gamma*gamma*gamma*gamma), 
+                    "data": coef[count_alpha]*(gamma*gamma), 
                     "mode": "1",
                     "isfloat": "0"}
     full_set.append(data_set)
@@ -140,6 +135,6 @@ print(decision)
 
 # Predict the value of the digit on the test subset
 predicted = clf.predict(X_test)
-#print(predicted)
+print(predicted)
 print(f"Classification report for classifier {clf}:\n"
       f"{metrics.classification_report(y_test, predicted)}\n")
