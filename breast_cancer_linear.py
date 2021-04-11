@@ -10,29 +10,6 @@ from sklearn.datasets import load_breast_cancer
 digits = load_breast_cancer()
 
 
-
-#digits = np.load('MNISTcwtrain1000.npy')
-#d = np.load('MNISTcwtest100.npy')
-#data = datasets.load_digits()
-
-#print(d.shape)
-#for x in d:
- #   print(x)
-#print(digits)
-#print(d)
-
-
-#_, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
-#for ax, image, label in zip(axes, digits.images, digits.target):
- #   ax.set_axis_off()
-  #  ax.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
-   # ax.set_title('Training: %i' % label)
-
-# flatten the images
-#n_samples = len(digits.images)
-#data = digits.images.reshape((n_samples, -1))
-
-
 # Create a classifier: a support vector classifier
 clf = svm.SVC(kernel = 'linear')
 
@@ -44,8 +21,15 @@ clf = svm.SVC(kernel = 'linear')
 X_train, X_test, y_train, y_test = train_test_split(
     digits.data, digits.target, test_size=0.5, shuffle=False)
 
+X_train = X_train.astype(np.float32)
+X_test = X_test.astype(np.float32)
+
+
+
 print(np.shape(X_train))
 print(np.shape(X_test))
+
+
 
 
 clf.fit(X_train, y_train)
@@ -58,6 +42,10 @@ print(d)
 
 print(np.shape(b))
 print(b)
+
+decision = clf.decision_function(X_test)
+print(np.shape(decision))
+print(decision)
 
 count = 0
 count_alpha = 0
@@ -83,9 +71,9 @@ for x in X_test[count]:
 sum = 0
 count = 0
 for x in spv:
-    dot = round(x.dot(X_test[1]))
+    dot = x.dot(X_test[0])
     print(dot)
-    dot = round(dot*coef[count])
+    dot = dot*coef[count]
     print(dot)
     sum = sum + dot
     print(sum)
