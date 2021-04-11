@@ -81,6 +81,9 @@ for x in spv:
 sum = sum + b
 print(sum)
 
+X_train = X_train.astype(float)
+X_test = X_test.astype(float)
+
 count = 0
 full_set = []
 for v in spv:
