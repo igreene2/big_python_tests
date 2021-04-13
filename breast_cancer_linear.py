@@ -14,15 +14,12 @@ digits = load_breast_cancer()
 clf = svm.SVC(kernel = 'linear')
 
 
-# WHAT ARE X AND Y IN THIS CASE OF THE DATA I HAVE
-# TRY TO USE MNIST WITH YIS NOTEBOOK AND SEE IF THAT IS BETTER
-
 # Split data into 50% train and 50% test subsets
 X_train, X_test, y_train, y_test = train_test_split(
     digits.data, digits.target, test_size=0.5, shuffle=False)
 
-X_train = X_train.astype(np.float32)
-X_test = X_test.astype(np.float32)
+# X_train = X_train.astype(np.float32)
+# X_test = X_test.astype(np.float32)
 
 
 
@@ -33,7 +30,8 @@ print(np.shape(X_test))
 
 
 clf.fit(X_train, y_train)
-spv = clf.support_vectors_ 
+spv = clf.support_vectors_
+print(np.shape(spv)) 
 d = clf.dual_coef_
 b = clf.intercept_
 
@@ -56,18 +54,7 @@ for x in d[count]:
 for x in X_test[count]:
     test.append(x)    
 
-# for x in spv:
-#     print(x)
 
-# for x in spv[0]:
-#     print(x)
-
-# print(coef)
-# print(test)
-# print(X_test[1])
-# print(X_test[2])
-
-# print(spv[0].dot(X_test[0]))
 sum = 0
 count = 0
 for x in spv:
@@ -81,8 +68,8 @@ for x in spv:
 sum = sum + b
 print(sum)
 
-X_train = X_train.astype(float)
-X_test = X_test.astype(float)
+# X_train = X_train.astype(float)
+# X_test = X_test.astype(float)
 
 count = 0
 full_set = []
